@@ -8,11 +8,11 @@
 		{"id":"52490120063a3ab2","type":"text","text":"**Encoder.**","x":-80,"y":92,"width":140,"height":50,"color":"1"},
 		{"id":"e310bed20395075c","type":"file","file":"TNN/Transformer model.png","x":180,"y":-200,"width":620,"height":634,"color":"1"},
 		{"id":"a926a784abd0de76","type":"file","file":"TNN/FFNN.png","x":-101,"y":-80,"width":182,"height":124,"color":"5"},
-		{"id":"96f242bb7d9ee57c","type":"file","file":"TNN/details.png","x":-2000,"y":-157,"width":1404,"height":747,"color":"1"},
 		{"id":"43e249d5e35e85fc","type":"text","text":"**Positional Encoding:**\nis like a map or address that helps the TNN understand where each word or token belongs in a sequence.(**_using Sin and Cos_**).","x":560,"y":520,"width":270,"height":200,"color":"4"},
 		{"id":"232af39093e05ac8","type":"text","text":"**Input Embedding:** Convert words to vectors of numbers.","x":140,"y":545,"width":235,"height":95,"color":"4"},
 		{"id":"7e8abba51cb8a6e1","type":"file","file":"TNN/Self-Attention.png","x":-160,"y":802,"width":400,"height":63,"color":"1"},
-		{"id":"70fa2ab07b9fecf4","type":"text","text":"**Self-Attention. :** it's the main core of the TNN, works by seeing how similar and important each word is to all of the words in a sentence, including itself.","x":375,"y":802,"width":285,"height":169,"color":"1"}
+		{"id":"70fa2ab07b9fecf4","type":"text","text":"**Self-Attention. :** it's the main core of the TNN, works by seeing how similar and important each word is to all of the words in a sentence, including itself.","x":375,"y":802,"width":285,"height":169,"color":"1"},
+		{"id":"96f242bb7d9ee57c","type":"file","file":"TNN/details.png","x":-2480,"y":-80,"width":1404,"height":747,"color":"1"}
 	],
 	"edges":[
 		{"id":"a074aae2151991a7","fromNode":"52490120063a3ab2","fromSide":"right","toNode":"e310bed20395075c","toSide":"left"},

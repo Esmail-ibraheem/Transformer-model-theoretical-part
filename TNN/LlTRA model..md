@@ -1,5 +1,20 @@
-### _The state_of_the_art( unordered neural network)
-[[Summarize for the paper.]]
+### [Transformer model for translation](https://github.com/Esmail-ibraheem/LlTRA-Model.) (The state of the art)
+#### _Summarize the paper ("attention is all you Need"):
+
+The paper titled "Attention Is All You Need" introduces a new network architecture called the Transformer, which is based solely on attention mechanisms and eliminates the need for recurrent or convolutional neural networks. The authors propose this architecture as an alternative to existing sequence transduction models. The Transformer model demonstrates superior quality, parallelizability, and reduced training time compared to traditional models.
+
+The paper begins by discussing the prominence of recurrent neural networks (RNNs) in sequence modeling and transduction tasks such as language modeling and machine translation. However, RNNs suffer from sequential computation and limited parallelization, especially with longer sequences. Attention mechanisms have been used in conjunction with RNNs to model dependencies between positions in sequences. The authors propose the Transformer as a model architecture that relies solely on attention mechanisms, allowing for increased parallelization and improved performance.
+
+The paper presents the Transformer model's architecture and its components, including the encoder and decoder stacks. The encoder consists of multiple layers with self-attention mechanisms and position-wise fully connected networks. The decoder, in addition to the encoder layers, incorporates multi-head attention over the encoder's output. The attention function used in the Transformer is described as scaled dot-product attention, which computes the compatibility between queries and keys to obtain weighted values.
+
+The authors highlight the advantages of the Transformer model over existing approaches, such as reduced computational complexity and increased parallelization. They conduct experiments on machine translation tasks, demonstrating that the Transformer outperforms previous models in terms of translation quality. The Transformer achieves state-of-the-art results on the WMT 2014 English-to-German and English-to-French translation tasks while requiring significantly less training time.
+
+Furthermore, the authors show that the Transformer model generalizes well to other tasks by successfully applying it to English constituency parsing with both large and limited training data. They provide detailed descriptions of the model's architecture, training process, and evaluation metrics.
+
+In conclusion, the paper introduces the Transformer model as a novel architecture for sequence transduction tasks. By leveraging attention mechanisms and eliminating the reliance on recurrent or convolutional networks, the Transformer achieves improved performance, parallelizability, and training efficiency. The experimental results validate the effectiveness of the Transformer on machine translation tasks, setting new state-of-the-art results.
+
+---
+#### Explanation:
 
 The Transformer neural network is a powerful deep learning model that was introduced in a landmark paper titled "[[attention is all you need..pdf]]" by Vaswani et al. in 2017. It revolutionized the field of natural language processing (NLP) and has since found applications in various other domains. The Transformer architecture is based on the concept of attention, enabling it to capture long-range dependencies and achieve state-of-the-art performance on a wide range of tasks.
 
@@ -52,7 +67,7 @@ the Transformer Neural Network (TNN) introduced a breakthrough solution called "
 
 ![[Pasted image 20231220223916.png]]
 
-### explanation:
+### Detailed explanation:
 
 Please check this canvas [[Transformer model..canvas|Transformer model.]] to observe how the peculiar words function, and then proceed to read the following section to understand how the model itself operates. 
 
@@ -127,7 +142,7 @@ $$\sigma(\mathbf{z})_j = \frac{e^{z_j}}{\sum_{k=1}^K e^{z_k}}
 $$
 ​
 ### Linear 
-convert the embeddings to word again (**_it just has weights not biases._**)   
+convert the embeddings to word again (**_it just has weights not biases._**)  
 
 ---
 ### Training:
@@ -142,28 +157,77 @@ $$H(P^*|P) = -\sum P^*(i) \log(P(i))$$
 ![[Pasted image 20231224195056.png]]
 
 ---
+## Project definition:
 
-## Notes: 
+LlTRA stands for: Language to Language Transformer model from the paper "Attention is all you Need", building transformer model:[Transformer model](https://github.com/Esmail-ibraheem/Transformer-model) from scratch and use it for translation using pytorch.
+
+### Problem Statement:
+
+In the rapidly evolving landscape of natural language processing (NLP) and machine translation, there exists a persistent challenge in achieving accurate and contextually rich language-to-language transformations. Existing models often struggle with capturing nuanced semantic meanings, context preservation, and maintaining grammatical coherence across different languages. Additionally, the demand for efficient cross-lingual communication and content generation has underscored the need for a versatile language transformer model that can seamlessly navigate the intricacies of diverse linguistic structures.
+
+### Goal:
+
+Develop a specialized language-to-language transformer model that accurately translates from the Arabic language to the English language, ensuring semantic fidelity, contextual awareness, cross-lingual adaptability, and the retention of grammar and style. The model should provide efficient training and inference processes to make it practical and accessible for a wide range of applications, ultimately contributing to the advancement of Arabic-to-English language translation capabilities.
+
+### Dataset used:
+
+from hugging Face [huggingface/opus_infopankki](https://huggingface.co/datasets/opus_infopankki/viewer/ar-en/train?p=3)
+
+### Search algorithm used:
+
+Greedy Algorithm for finding which token has the maximum probability.
+
+### Loss function used:
+
+cross entropy function.
+
+### Optimization algorithms used: 
+
+Adam algorithm: Adam (short for Adaptive Moment Estimation) is an optimization algorithm used for training deep neural networks. It combines ideas from two other popular optimization algorithms: RMSprop (Root Mean Square Propagation) and momentum.
+
+### Training:
+
+I used my drive to upload the project and then connected it to the Google Collab to train it:
+
+#### still training.
+
+```python
+from google.colab import drive
+
+drive.mount('/content/drive')
+
+import os
+
+os.chdir('/content/drive/MyDrive/TrainModel')
+
+%run train.py
+```
+
+## hours of training until now: 4 hours
+
+---
+
+## Notes and Terms: 
 
 1. Input matrix (sequence, dmodel)
 2. 1. Embedding words.
-3. positional Encoding.
-4. self attention.
-5. Query, key values.
-6. sequence to sequence(seq2seq).
-7. Recurrent neural network.
-8. Convolutional neural network.
-9. LTM.
-10. GNN.
-11. Encoder.
-12. Decoder.
-13. Multi head attention.
-14. auto regression.
-15. seq2seq(Translation).
-16. seq2vec(sentence classify).
-17. Natural language processing.
-18. Stable Diffusion.
-19. Translator.
+2. positional Encoding.
+3. self attention.
+4. Query, key values.
+5. sequence to sequence(seq2seq).
+6. Recurrent neural network.
+7. Convolutional neural network.
+8. LTM.
+9. GNN.
+10. Encoder.
+11. Decoder.
+12. Multi head attention.
+13. auto regression.
+14. seq2seq(Translation).
+15. seq2vec(sentence classify).
+16. Natural language processing.
+17. Stable Diffusion.
+18. Translator.
 20. N: number of layers.
 21. dmodel: length of word.
 22. dff: number of neurons in ffn.
