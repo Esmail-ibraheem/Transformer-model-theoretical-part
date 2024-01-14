@@ -189,7 +189,7 @@ Adam algorithm: Adam (short for Adaptive Moment Estimation) is an optimization a
 
 I used my drive to upload the project and then connected it to the Google Collab to train it:
 
-#### still training.
+#### Collab training connected with my drive.
 
 ```python
 from google.colab import drive
@@ -203,11 +203,195 @@ os.chdir('/content/drive/MyDrive/TrainModel')
 %run train.py
 ```
 
-## hours of training until now: 4 hours
+## hours of training in 20 epochs: 4 hours
+
+### Some Results:
+
+```
+SOURCE: العائلات الناطقة بلغة أجنبية لديها الحق في خدمات الترجمة عند اللزوم.
+TARGET: A foreign-language family is entitled to interpreting services as necessary.
+PREDICTED: in a native language is provided by the services of the services for the elderly .
+--------------------------------------------------------------------------------
+SOURCE: قمت بارتكاب جرائم وتُعتبر بأنك خطير على النظام أو الأمن العام.
+TARGET: you have committed crimes and are considered a danger to public order or safety
+PREDICTED: you have committed crimes and are considered a danger to public order or safety
+--------------------------------------------------------------------------------
+SOURCE: عندما تلتحق بالدراسة، فستحصل على الحق في إنجاز كلتا الدرجتين العلميتين.
+TARGET: When you are accepted into an institute of higher education, you receive the right to complete both degrees.
+PREDICTED: When you have a of residence , you will receive a higher education degree .
+--------------------------------------------------------------------------------
+SOURCE: اللجنة لا تتداول حالات التهميش والتمييز المتعلقة بالعمل.
+TARGET: The Tribunal does not handle cases of employment-related discrimination.
+PREDICTED: The does not have to pay and the work .
+--------------------------------------------------------------------------------
+SOURCE: يجب عليك أيضاً أن تستطيع إثبات على سبيل المثال بالوصفة الطبية أو بالتقرير الطبي بأن الغرض من الدواء هو استخدامك أنت الشخصي.
+TARGET: In addition, you must be able to prove with a prescription or medical certificate, for example, that the medicine is intended for your personal use.
+PREDICTED: You must also have to prove your identity with a friend or friend , for example , that the medicine is intended for your personal use .
+--------------------------------------------------------------------------------
+SOURCE: إذا كان لديك ترخيص إقامة في فنلندا، ولكن لم تُمنح ترخيص إقامة استمراري، فسوف تصدر دائرة شؤون الهجرة قراراً بالترحيل.
+TARGET: If you already have a residence permit in Finland but are not granted a residence permit extension, the Finnish Immigration Service makes a deportation decision.
+PREDICTED: If you have a residence permit in but are not granted a residence permit , the Service makes a decision .
+```
+
+---
+## _Project components: 
+
+### 1. model.py: 
+
+The provided Transformer model is a flexible and general-purpose architecture that can be used for various natural language processing tasks by modifying the input and output layers. It offers a powerful mechanism for capturing dependencies in sequential data and has been widely adopted for tasks like machine translation and text generation.
+
+1. InputEmbeddingsLayer:
+   - This module represents the input embeddings layer, which maps the input tokens to continuous vector representations.
+   - It uses an embedding layer to perform the mapping.
+
+2. PositionalEncodingLayer:
+   - This module adds positional information to the input embeddings to capture the order of the tokens in the sequence.
+   - It uses sinusoidal functions to encode the position information.
+
+3. NormalizationLayer:
+   - This module performs layer normalization on the input tensor to stabilize the learning process.
+   - It normalizes the input tensor by subtracting the mean and dividing by the standard deviation.
+
+4. FeedForwardBlock:
+   - This module represents the feed-forward block in the Transformer model.
+   - It consists of two linear layers with a ReLU activation function and dropout in between.
+
+5. MultiHeadAttentionBlock:
+   - This module implements the multi-head attention mechanism, a key component of the Transformer model.
+   - It performs attention computations using linear transformations of the input tensor.
+
+6. ResidualConnection:
+   - This module combines the output of a sub-layer with its input using residual connections.
+   - It applies dropout and layer normalization to the input tensor before adding it to the sub-layer's output.
+
+7. EncoderBlock:
+   - This module represents a single block in the encoder part of the Transformer model.
+   - It consists of a self-attention block and a feed-forward block, both with residual connections.
+
+8. Encoder:
+   - This module represents the encoder part of the Transformer model, composed of multiple encoder blocks.
+   - It applies the encoder blocks sequentially to the input sequence.
+
+9. DecoderBlock:
+   - This module represents a single block in the decoder part of the Transformer model.
+   - It consists of a self-attention block, a cross-attention block, and a feed-forward block, all with residual connections.
+   
+10. Decoder:
+    - This module represents the decoder part of the Transformer model, composed of multiple decoder blocks.
+    - It applies the decoder blocks sequentially to the target sequence, using the encoder output for cross-attention.
+
+12. LinearLayer:
+    - This module performs a linear transformation of the decoder output to obtain the final logits for each target token.
+
+13. TransformerBlock:
+    - This module combines the encoder, decoder, and linear layers to form a complete Transformer model.
+    - It provides methods for encoding, decoding, and obtaining the linear output.
+
+14. TransformerModel:
+    - This function creates an instance of the TransformerBlock with the specified dimensions and hyperparameters.
+    - It initializes the model's parameters and returns the TransformerBlock object.
+
+
+### 2. dataset.py:
+
+The BilingualDataset class provides a convenient way to process and prepare bilingual data for training the Transformer model. It handles tokenization, padding, and masking of the input sequences, and provides the necessary tensors and masks for training.
+
+1. Initialization:
+   - The constructor takes several parameters, including the dataset, source and target tokenizers, source and target languages, and sequence length.
+   - It initializes the dataset and other necessary attributes.
+
+2. Length:
+   - The __len__ method returns the length of the dataset, which is the number of samples in the dataset.
+
+3. Get Item:
+   - The __getitem__ method retrieves a specific sample from the dataset at the given index.
+   - It retrieves the source and target texts from the dataset dictionary.
+   - The source and target texts are tokenized using the source and target tokenizers, respectively.
+
+4. Padding:
+   - The method calculates the padding required for the source and target sequences to match the specified sequence length.
+   - It ensures that the total length of the encoded sequences is equal to the sequence length.
+
+5. Encoding:
+   - The method constructs the encoder input, decoder input, and target tensors.
+   - It concatenates the special tokens (SOS, EOS, PAD) with the encoded source and target sequences.
+   - The encoder input includes the SOS token, source tokens, EOS token, and padding tokens.
+   - The decoder input includes the SOS token, target tokens, and padding tokens.
+   - The target tensor includes the target tokens, padding tokens, and EOS token.
+
+6. Masking:
+   - The method creates masks for the encoder and decoder inputs.
+   - The encoder input mask marks the positions of the padding tokens as 0 and the rest as 1.
+   - The decoder input mask marks the positions of the padding tokens and future tokens (after the current position) as 0 and the rest as 1.
+   - The casual_mask function is used to create the decoder input mask.
+
+7. Return:
+   - The method returns a dictionary containing various elements:
+     - "encoder_input": The tensor representing the encoder input sequence.
+     - "decoder_input": The tensor representing the decoder input sequence.
+     - "encoder_input_mask": The mask for the encoder input.
+     - "decoder_input_mask": The mask for the decoder input.
+     - "Target": The tensor representing the target sequence.
+     - "source_text": The original source text.
+     - "target_text": The original target text.
+
+### 3. train.py:
+
+The provided `train.py` file is responsible for training a model by building tokenizers and feeding it with a dataset. Overall, this script builds tokenizers for the source and target languages using the dataset, creates a transformer model, trains the model using the dataset, and saves the model's weights after each epoch.
+
+Let's go through the different parts of the file to understand its functionality:
+
+1. Importing libraries: The script starts by importing the necessary libraries and modules, including PyTorch components, dataset-related modules, tokenizers, and other utility modules.
+
+2. Utility functions (commented out): The file contains two utility functions, `greedy_search` and `run_validation`, which are currently commented out. These functions are likely used for generating predictions and evaluating the model's performance during validation.
+
+3. Get_All_Sentences: This function retrieves sentences from the dataset for a given language. It utilizes a generator to yield the sentences.
+
+4. Build_Tokenizer: This function builds a tokenizer for a specific language using the dataset. It first checks if the tokenizer file exists for the given language. If not, it creates a new tokenizer using the WordLevel model and trains it on the sentences from the dataset. The trained tokenizer is then saved to the tokenizer file. If the tokenizer file already exists, it loads the tokenizer from the file.
+
+5. Get_dataset: This function loads the dataset using the `load_dataset` function from the `datasets` module. It then calls the `Build_Tokenizer` function to build the tokenizers for the source and target languages. The function splits the dataset into training and validation sets and creates instances of the `BilingualDataset` class for both sets, passing the tokenizers and other configuration parameters. It also determines the maximum source and target sequence lengths in the dataset. Finally, it creates data loaders for the training and validation datasets.
+
+6. Get_model: This function creates an instance of the `TransformerModel` class, which represents the model to be trained. It takes the source and target vocabulary sizes, sequence lengths, and the dimensionality of the model as input.
+
+7. train_model: This is the main training function. It checks the availability of a CUDA-enabled GPU and sets the device accordingly. It creates the necessary directories and loads the dataset and model. It also initializes the optimizer, loss function, and other variables for training.
+
+8. Training loop: The script enters a loop that iterates over the specified number of epochs. Inside the epoch loop, it iterates over the batches of the training data. For each batch, it performs the following steps:
+   - Moves the input tensors to the device (GPU).
+   - Passes the input through the model's encoder and decoder.
+   - Computes the loss between the predicted output and the target output.
+   - Backpropagates the gradients and updates the model's parameters.
+   - Logs the training loss and updates the global step counter.
+
+9. Saving the model: After each epoch, the script saves the model's weights, optimizer state, epoch number, and global step to a file using the `torch.save` function.
+
+10. Main section: The script includes a main section that loads the configuration settings, ignores warnings, and calls the `train_model` function with the configuration.
+
+### 4. Configuration.py:
+
+this is the settings of the model, You can customize the source and target languages, sequence lengths for each, the number of epochs, batch size, and more.
+
+```python
+def Get_configuration():
+    return {
+        "batch_size": 8,
+        "num_epochs": 30,
+        "lr": 10**-4,
+        "sequence_length": 100,
+        "d_model": 512,
+        "datasource": 'opus_infopankki',
+        "source_language": "ar",
+        "target_language": "en",
+        "model_folder": "weights",
+        "model_basename": "tmodel_",
+        "preload": "latest",
+        "tokenizer_file": "tokenizer_{0}.json",
+        "experiment_name": "runs/tmodel"
+    }
+```
 
 ---
 
-## Notes and Terms: 
+## Notes and Terms in the research: 
 
 1. Input matrix (sequence, dmodel)
 2. 1. Embedding words.

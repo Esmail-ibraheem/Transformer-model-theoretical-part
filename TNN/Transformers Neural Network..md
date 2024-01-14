@@ -1,5 +1,6 @@
 ### _The state_of_the_art( unordered neural network)
 [[Summarize for the paper.]]
+[[LlTRA model.]]
 
 The Transformer neural network is a powerful deep learning model that was introduced in a landmark paper titled "[[attention is all you need..pdf]]" by Vaswani et al. in 2017. It revolutionized the field of natural language processing (NLP) and has since found applications in various other domains. The Transformer architecture is based on the concept of attention, enabling it to capture long-range dependencies and achieve state-of-the-art performance on a wide range of tasks.
 
