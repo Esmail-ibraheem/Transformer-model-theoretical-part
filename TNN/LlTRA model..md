@@ -1,5 +1,9 @@
 ### [Transformer model for translation](https://github.com/Esmail-ibraheem/LlTRA-Model.) (The state of the art)
-#### _Summarize the paper ("attention is all you Need"):
+
+
+![[Transformer_Diagram_2.drawio 1.png]]
+
+#### _Summarize the paper("attention is all you Need"):
 
 The paper titled "Attention Is All You Need" introduces a new network architecture called the Transformer, which is based solely on attention mechanisms and eliminates the need for recurrent or convolutional neural networks. The authors propose this architecture as an alternative to existing sequence transduction models. The Transformer model demonstrates superior quality, parallelizability, and reduced training time compared to traditional models.
 
@@ -179,7 +183,7 @@ Greedy Algorithm for finding which token has the maximum probability.
 
 ### Loss function used:
 
-cross entropy function.
+cross entropy function: $$L(z,y) = -[ylog(z) + (1-y)log(1-z)]$$
 
 ### Optimization algorithms used: 
 
@@ -188,6 +192,17 @@ Adam algorithm: Adam (short for Adaptive Moment Estimation) is an optimization a
 ### Training:
 
 I used my drive to upload the project and then connected it to the Google Collab to train it:
+
+- hours of training: 4 hours.
+- epochs: 20.
+- number of dataset rows: 2,934,399.
+- size of the dataset: 95MB.
+- size of the auto-converted parquet files: 153MB.
+- Arabic tokens: 29999.
+- English tokens: 15697.
+- pre-trained model in collab.
+- BLEU score from Arabic to English: 19.7
+		❒ Bleu score – The bilingual evaluation understudy (bleu) score quantifies how good a machine translation is by computing a similarity score based on n-gram precision.
 
 #### Collab training connected with my drive.
 
@@ -202,8 +217,7 @@ os.chdir('/content/drive/MyDrive/TrainModel')
 
 %run train.py
 ```
-
-## hours of training in 20 epochs: 4 hours
+---
 
 ### Some Results:
 
@@ -394,32 +408,32 @@ def Get_configuration():
 ## Notes and Terms in the research: 
 
 1. Input matrix (sequence, dmodel)
-2. 1. Embedding words.
-2. positional Encoding.
-3. self attention.
-4. Query, key values.
-5. sequence to sequence(seq2seq).
-6. Recurrent neural network.
-7. Convolutional neural network.
-8. LTM.
-9. GNN.
-10. Encoder.
-11. Decoder.
-12. Multi head attention.
-13. auto regression.
-14. seq2seq(Translation).
-15. seq2vec(sentence classify).
-16. Natural language processing.
-17. Stable Diffusion.
-18. Translator.
-20. N: number of layers.
-21. dmodel: length of word.
-22. dff: number of neurons in ffn.
-23. h: multi-head attention .
-24. dk: length of Keys, quers, vlaues.
-25. Pdrop: probability of droping one block .
-26. BLEU: مقياس كلما زاد كان افضل
-27. PPL: مقياس كلما زاد كان اخس.
+2. Embedding words.
+3. positional Encoding.
+4. self attention.
+5. Query, key values.
+6. sequence to sequence(seq2seq).
+7. Recurrent neural network.
+8. Convolutional neural network.
+9. LTM.
+10. GNN.
+11. Encoder.
+12. Decoder.
+13. Multi head attention.
+14. auto regression.
+15. seq2seq(Translation).
+18. seq2vec(sentence classify).
+19. Natural language processing.
+20. Stable Diffusion.
+21. Translator.
+22. N: number of layers.
+23. dmodel: length of word.
+24. dff: number of neurons in ffn.
+25. h: multi-head attention .
+26. dk: length of Keys, quers, vlaues.
+27. Pdrop: probability of droping one block .
+28. BLEU: مقياس كلما زاد كان افضل
+29. PPL: مقياس كلما زاد كان اخس.
 
 ---
 
